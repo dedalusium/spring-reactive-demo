@@ -4,6 +4,9 @@ import com.gensdeconfiance.lunchandlearn.reactivedemo.domain.Profile;
 import com.gensdeconfiance.lunchandlearn.reactivedemo.domain.ProfileService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Flux;
+
+import java.util.List;
 
 @RestController("/profiles")
 public class ProfileController {
@@ -14,7 +17,13 @@ public class ProfileController {
     }
 
     @GetMapping
-    public Profile getProfile(){
-
+    public List<Profile> getProfiles() {
+        return profileService.getAll();
     }
+
+    @GetMapping
+    public Flux<Profile> getReactiveProfiles() {
+        return profileService.getReactiveAll();
+    }
+
 }
