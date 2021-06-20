@@ -21,7 +21,7 @@ public class ProfileController {
         return profileService.getAll();
     }
 
-    @GetMapping
+    @GetMapping("/reactive")
     public Flux<Profile> getReactiveProfiles() {
         return profileService.getReactiveAll();
     }

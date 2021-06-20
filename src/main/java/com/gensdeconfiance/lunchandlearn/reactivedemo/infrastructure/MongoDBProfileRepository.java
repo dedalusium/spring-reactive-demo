@@ -25,4 +25,9 @@ public class MongoDBProfileRepository implements ProfileRepository {
     public Flux<Profile> getReactiveAllProfiles() {
         return reactiveRepository.findAll();
     }
+
+    @Override
+    public Flux<Profile> saveProfiles(List<Profile> profiles) {
+        return reactiveRepository.saveAll(profiles);
+    }
 }
