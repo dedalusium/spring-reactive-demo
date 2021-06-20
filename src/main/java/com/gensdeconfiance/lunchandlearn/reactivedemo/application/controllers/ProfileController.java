@@ -2,13 +2,12 @@ package com.gensdeconfiance.lunchandlearn.reactivedemo.application.controllers;
 
 import com.gensdeconfiance.lunchandlearn.reactivedemo.domain.Profile;
 import com.gensdeconfiance.lunchandlearn.reactivedemo.domain.ProfileService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
-import reactor.core.publisher.Flux;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController("/profiles")
+@RestController
+@RequestMapping("/profiles")
 public class ProfileController {
     private final ProfileService profileService;
 
@@ -21,9 +20,8 @@ public class ProfileController {
         return profileService.getAll();
     }
 
-    @GetMapping("/reactive")
-    public Flux<Profile> getReactiveProfiles() {
-        return profileService.getReactiveAll();
+    @GetMapping("/{profileId}")
+    public Profile getProfiles(@PathVariable String profileId, @RequestParam(required = false) Integer number) {
+        return profileService.getProfile(profileId);
     }
-
 }

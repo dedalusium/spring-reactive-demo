@@ -3,6 +3,7 @@ package com.gensdeconfiance.lunchandlearn.reactivedemo.infrastructure;
 import com.gensdeconfiance.lunchandlearn.reactivedemo.domain.Profile;
 import com.gensdeconfiance.lunchandlearn.reactivedemo.domain.ProfileRepository;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 
@@ -27,7 +28,32 @@ public class MongoDBProfileRepository implements ProfileRepository {
     }
 
     @Override
-    public Flux<Profile> saveProfiles(List<Profile> profiles) {
+    public List<Profile> saveProfiles(List<Profile> profiles) {
+        return repository.saveAll(profiles);
+    }
+
+    @Override
+    public Flux<Profile> saveReactiveProfiles(List<Profile> profiles) {
         return reactiveRepository.saveAll(profiles);
+    }
+
+    @Override
+    public void deleteAll() {
+        repository.deleteAll();
+    }
+
+    @Override
+    public Mono<Void> deleteReactiveAll() {
+        return reactiveRepository.deleteAll();
+    }
+
+    @Override
+    public Profile getProfile(String id) {
+        return repository.findById(id).orElseThrow();
+    }
+
+    @Override
+    public Mono<Profile> getReactiveProfile(String id) {
+        return reactiveRepository.findById(id);
     }
 }
